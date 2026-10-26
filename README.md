@@ -1,165 +1,75 @@
-# Cluence（仮称）
+<div align="center">
 
-**Describe it. Don't name it.** — 物体の名前を言わず、英語で説明してAIに当てさせる、1日1問の英語スピーキングゲーム。
+# Cluence
 
-> **ステータス:** 企画・仕様検討中。名称「Cluence」は仮称であり、商標・ドメイン等は未確認です。
+### Describe it. Don't name it.
 
-## 概要
+**An AI-powered daily English description game.**
 
-画面中央に表示された物体を、**その物体の名前を使わずに英語で説明**します。AIはプレイヤーの説明だけを手がかりに物体を推理します。少ない試行回数で正解させるほど有利です。プレイ終了後には発音・文法・語彙・説明力のフィードバックを受けられ、スコアをランキングで競えます。
+[How to Play](docs/game-rules.md) · [Documentation](docs/README.md) · [Roadmap](docs/roadmap.md)
 
-- **競技性:** 的確な説明でAIを早く正解に導く
-- **学習性:** 英語の発音・文法・語彙・伝達力を振り返る
-- **継続性:** ユーザーごとに異なるデイリー問題を1日1問
+</div>
 
-## ゲームルール
+---
 
-| 項目 | 仕様 |
+## Make AI guess what you mean
+
+**Cluence** is a daily English-speaking game where you describe an object without saying its name. An AI listens to your description and guesses the object. If it guesses incorrectly, you can add another clue in English.
+
+The challenge is to communicate clearly in as few attempts as possible. After each game, receive feedback on pronunciation, grammar, vocabulary, and clarity.
+
+> **Project status:** Concept and specification phase. The gameplay and scoring described here are proposed rules, not released features.
+
+## How it works
+
+1. **See an object.** Get one assigned object each day. Different players may receive different objects.
+2. **Describe it in English.** Speak for up to 30 seconds per attempt without saying the object's name or a direct synonym.
+3. **See the AI's guess.** The AI returns **one** object as its guess.
+4. **Refine your description.** If the guess is wrong, add another clue. Previous descriptions remain part of the context.
+5. **Earn a score.** Succeed within five attempts, then review your English feedback and leaderboard standing.
+
+Read the [complete game rules](docs/game-rules.md).
+
+## Features
+
+- **One challenge a day** — a new opportunity to practice and compete.
+- **AI guessing** — explain the object clearly enough for the AI to identify it.
+- **Up to five attempts** — each additional clue should improve the AI's understanding.
+- **English learning feedback** — review pronunciation, grammar, vocabulary, and descriptive clarity after playing.
+- **Competitive scoring** — balance successful communication and English quality.
+- **Leaderboards** — compare daily scores, with weekly and monthly rankings planned.
+
+## Scoring
+
+The proposed score is **1,000 points** in total:
+
+| Category | Maximum |
+| --- | ---: |
+| AI guessing success / number of attempts | 400 |
+| Pronunciation | 200 |
+| Grammar | 150 |
+| Clarity of description | 150 |
+| Vocabulary | 100 |
+| **Total** | **1,000** |
+
+Scoring calibration, object difficulty, and ranking fairness require testing before competitive release. See [Scoring](docs/scoring.md).
+
+## Documentation
+
+| Document | Description |
 | --- | --- |
-| 出題 | 1日1問、ユーザーごとに異なる物体画像 |
-| 入力 | 英語の音声（マイク） |
-| 1回の発話 | 最大30秒（案） |
-| 試行回数 | 最大5回 |
-| 禁止表現 | 正解物体の名前・直接的な同義語 |
-| AIの回答 | **毎回、推理した物体を1つだけ表示（方式A）** |
-| 正解条件 | AIの推理が出題物体と一致すること |
-| 不正解時 | AIの推理を確認して説明を追加できる |
-| 説明の扱い | 過去の発話も次回の推理に引き継ぐ |
-| 終了条件 | 正解、5回失敗、またはギブアップ |
-| 採点 | 最大1,000点（暫定） |
+| [Documentation index](docs/README.md) | Overview of the project documentation |
+| [Game overview](docs/game-overview.md) | Concept, audience, and game experience |
+| [Game rules](docs/game-rules.md) | Attempts, guesses, forbidden words, and end conditions |
+| [Scoring](docs/scoring.md) | Score allocation and fairness considerations |
+| [AI system](docs/ai-system.md) | AI guessing, answer matching, and evaluation boundaries |
+| [Learning feedback](docs/learning-feedback.md) | Post-game pronunciation and language feedback |
+| [Ranking](docs/ranking.md) | Daily, weekly, and monthly leaderboards |
+| [Architecture](docs/architecture.md) | Proposed technical structure |
+| [Roadmap](docs/roadmap.md) | MVP scope and future development |
 
-### プレイの流れ
+## Development
 
-1. 当日の問題画像を表示する。問題はユーザーごとに固定し、同日中に変更できない。
-2. プレイヤーが英語で説明を録音する。正解物体の名前は使えない。
-3. 音声を文字起こしし、AIが**説明文だけ**から物体を1つ推理する。
-4. AIの推理結果を1つ表示する。正解ならゲーム終了。
-5. 不正解なら、過去の説明とAIの誤答を参考に追加説明する。最大5回まで繰り返す。
-6. 終了後にスコア・順位・英語フィードバックを表示する。
+Cluence is currently being designed. The intended first milestone is a playable web prototype covering daily challenges, voice input, AI guessing, basic feedback, and daily rankings.
 
-**例:** 正解が *Rubber duck* の場合
-
-- 1回目: “It's a small yellow object.” → AI: **Lemon**（不正解）
-- 2回目: “It's made of rubber and floats on water.” → AI: **Rubber duck**（正解）
-
-ゲーム中は英語の添削を表示せず、プレイ後にまとめてフィードバックします。
-
-## スコアリング（暫定案）
-
-| 評価項目 | 配点 | 評価の方向性 |
-| --- | ---: | --- |
-| AI推理成功・試行回数 | 400 | 少ない試行回数で正解させる |
-| 発音 | 200 | 音素の正確さ、明瞭さ、聞き取りやすさ |
-| 文法 | 150 | 文法・構文の適切さ |
-| 説明力 | 150 | 識別しやすさ、具体性、簡潔さ |
-| 語彙力 | 100 | 文脈に合った語彙の使用 |
-| **合計** | **1,000** | |
-
-AI推理の得点例：1回目400点、2回目300点、3回目200点、4回目100点、5回目50点、未正解0点。
-
-長く話しただけで有利にならないよう、発話全体の評価を正規化します。アクセントの違いそのものを減点対象にせず、伝わりやすさを重視します。評価の再現性は基準サンプルで検証します。
-
-## 出題・ランキングの公平性
-
-- 毎日、近い難易度の物体を問題プールから選び、ユーザーごとに割り当てます。
-- 初回アクセス時に当日の問題を確定し、再抽選できないようにします。
-- 問題ごとの正答率・平均試行回数を蓄積し、難易度を検証します。
-- 日間ランキングは当日の確定スコアを比較します。
-- 週間・月間ランキングは期間内の確定スコアを集計します（集計方式は要確定）。
-- 同点時の順位決定は試行回数などを候補として検討します。
-
-**注意:** 問題がユーザーごとに異なるため、難易度が完全に一致するとは限りません。競技ランキングの正式運用前に、問題間の得点差を検証する必要があります。
-
-## AIの役割
-
-### 1. 音声認識
-プレイヤーの英語音声を文字起こしします。認識エラー時の再録音・救済方法は要設計です。
-
-### 2. 推理AI
-正解画像や正解IDを参照せず、蓄積した説明文だけから物体名を**1つ**出力します。推理モデル・プロンプトのバージョンを管理し、挙動の安定性を検証します。
-
-### 3. 正誤判定
-推理AIとは別の処理で、正解ID・許容同義語を照合します。例: *sofa* と *couch*。広すぎるカテゴリ名は正解としません。
-
-### 4. 英語評価
-音声と文字起こしから、発音・文法・説明力・語彙力を評価します。ゲーム終了後に、誤りの指摘・改善例・発音練習のヒントを返します。
-
-### 5. 禁止語判定
-正解物体の名称、複数形、明白な同義語などの使用を検出します。誤判定時の取り扱いは要設計です。
-
-## 想定画面
-
-1. ホーム／本日のチャレンジ
-2. プレイ画面（物体画像・録音・試行回数）
-3. AI推理結果画面（**1候補のみ**・正誤表示）
-4. リザルト画面（総合点・内訳）
-5. 英語フィードバック画面（発音・文法・改善例）
-6. ランキング画面（日間・週間・月間）
-7. プロフィール／過去の成績
-
-## 想定アーキテクチャ（候補）
-
-```text
-Web Frontend (Next.js / React)
-            |
-       Backend API
-    (FastAPI / NestJS)
-            |
-   +--------+---------+--------------+
-   |        |         |              |
- Speech   AI Guess  Scoring       Ranking
-   |        |         |              |
-   +--------+---------+--------------+
-            |
- PostgreSQL + Object Storage
-```
-
-初期段階では**モジュラーモノリス + 非同期ジョブ**を想定し、必要に応じてAI処理を独立サービスに切り出します。技術選定は未確定です。
-
-## MVP（最小実用版）
-
-- [ ] ユーザー認証
-- [ ] デイリー問題の割り当て・固定
-- [ ] 物体画像の表示
-- [ ] マイク録音・音声アップロード
-- [ ] 音声文字起こし
-- [ ] AI推理（回答は1つ）・正誤判定
-- [ ] 最大5回の試行管理
-- [ ] 禁止語チェック
-- [ ] 発音・文法・説明力・語彙力の採点
-- [ ] リザルト・簡易フィードバック
-- [ ] 日間ランキング
-- [ ] サーバー側のスコア確定・基本的な不正対策
-
-## 発展ロードマップ
-
-### Phase 1 — MVP検証
-実際に遊べるゲームを構築し、推理の面白さ、採点の安定性、問題の難易度差を検証します。
-
-### Phase 2 — 学習体験の強化
-発音の詳細フィードバック、改善文の提示、音声の聞き比べ、過去の弱点分析を追加します。
-
-### Phase 3 — 競技性の強化
-週間・月間ランキング、フレンドランキング、問題難易度補正、シーズン制を検討します。
-
-### Phase 4 — 継続・コミュニティ機能
-連続プレイ記録、実績、学習レポート、イベント問題、友人との競争などを検討します。
-
-## 未確定・要検討事項
-
-- [ ] 正式ゲーム名（現時点では **Cluence** を仮称とする）
-- [ ] 日付切り替えの基準タイムゾーン
-- [ ] 画像・問題データの調達方法と利用権
-- [ ] 禁止語を使用した際のペナルティと再挑戦可否
-- [ ] 録音・音声認識エラー時の救済方法
-- [ ] 同義語・上位概念の正解判定基準
-- [ ] 問題難易度の評価とスコア補正
-- [ ] AI採点の精度・一貫性・コスト
-- [ ] 週間・月間ランキングの集計方式
-- [ ] 録音データの保存期間・削除・プライバシー方針
-- [ ] 不正行為対策（録音差し替え、複数アカウント等）
-- [ ] 利用する音声認識・発音評価・LLMサービス
-
-## ライセンス
-
-未定。
+The architecture is not finalized. See the [architecture proposal](docs/architecture.md) and [roadmap](docs/roadmap.md).
